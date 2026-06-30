@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  firstName     String?
+  lastName      String?
+  gender        String?
+  username      String    @unique
+  email         String    @unique
+  password      String
+  avatar        String?
+  bio           String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  posts         Post[]
+  likes         Like[]
+  comments      Comment[]
+  followers     Follow[]  @relation("UserFollowers")
+  following     Follow[]  @relation("UserFollowing")
+  notificationsSent Notification[] @relation("NotificationActor")
+  notificationsReceived Notification[] @relation("NotificationRecipient")
+  passwordResetTokens PasswordResetToken[]
+  savedPosts    SavedPost[]
+}
+
+model Post {
+  id               String    @id @default(uuid())
+  content          String
+  imageUrl         String?
+  mediaUrl         String?
+  mediaType        String?
+  thumbnailUrl     String?
+  hideLikes        Boolean   @default(false)
+  disableComments  Boolean   @default(false)
+  userId           String
+  user             User      @relation(fields: [userId], references: [id])
+  likes            Like[]
+  comments         Comment[]
+  notifications    Notification[] @relation("NotificationPost")
+  savedBy          SavedPost[]
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model Like {
+  id       String   @id @default(uuid())
+  userId   String
+  postId   String
+  user     User     @relation(fields: [userId], references: [id])
+  post     Post     @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, postId])
+}
+
+model Comment {
+  id              String    @id @default(uuid())
+  content         String
+  userId          String
+  postId          String
+  parentCommentId String?
+  user            User      @relation(fields: [userId], references: [id])
+  post            Post      @relation(fields: [postId], references: [id])
+  parent          Comment?  @relation("CommentReplies", fields: [parentCommentId], references: [id], onDelete: Cascade)
+  replies         Comment[] @relation("CommentReplies")
+  createdAt       DateTime  @default(now())
+}
+
+model Follow {
+  id          String   @id @default(uuid())
+  followerId  String
+  followingId String
+  follower    User     @relation("UserFollowing", fields: [followerId], references: [id])
+  following   User     @relation("UserFollowers", fields: [followingId], references: [id])
+  createdAt   DateTime @default(now())
+
+  @@unique([followerId, followingId])
+}
+
+model Notification {
+  id          String   @id @default(uuid())
+  type        String
+  actorId     String?
+  recipientId String
+  postId      String?
+  data        Json?
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  actor       User?    @relation("NotificationActor", fields: [actorId], references: [id])
+  recipient   User     @relation("NotificationRecipient", fields: [recipientId], references: [id])
+  post        Post?    @relation("NotificationPost", fields: [postId], references: [id])
+}
+
+model PasswordResetToken {
+  id         String   @id @default(uuid())
+  userId     String
+  token      String   @unique
+  expiresAt  DateTime
+  usedAt     DateTime?
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SavedPost {
+  id        String   @id @default(uuid())
+  userId    String
+  postId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, postId])
+}

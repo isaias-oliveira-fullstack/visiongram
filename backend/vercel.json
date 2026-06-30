@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/serverless.ts",
+      "use": "@vercel/node"
+    }
+  ],  "installCommand": "npm install",
+  "buildCommand": "npm run vercel-build",  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/serverless.ts"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules/
+**/node_modules/
+.venv/
+**/.venv/
+.yarn/
+**/.yarn/
+.pnpm-store/
+.pnpm-debug.log*
+
+# Build outputs
+/dist/
+/dist-ssr/
+/build/
+/.vite/
+/coverage/
+*.tsbuildinfo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Local environment files
+.env
+.env.*
+.env.local
+.env.*.local
+/.env
+/.env.local
+/.env.*.local
+/backend/.env
+/backend/.env.*
+/backend/.env.local
+/backend/.env.*.local
+/frontend/.env
+/frontend/.env.*
+
+# Test and temporary files
+/cypress/videos/
+/cypress/screenshots/
+/coverage/
+/tmp/
+*.tmp
+*.temp
+*.local
+
+# Editor and IDE folders
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# GitHub metadata
+.github/
+
+# Prisma
+/prisma/dev.db
+/prisma/dev.db-journal
+
+# Package manager caches
+.pnpm-store/
+.pnpm-debug.log*
+
+
+.vercel
+.env*

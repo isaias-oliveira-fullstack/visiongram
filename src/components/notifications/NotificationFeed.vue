@@ -1,0 +1,51 @@
+<template>
+	<div class="flex flex-col space-y-8">
+		<div 
+			v-show="isNotificationSectionEmpty"
+			class="text-md font-sans sm:text-xl text-gray-500 self-center">
+			No Notifications yet.
+		</div>      
+
+		<UserProfileSkeleton 
+			:is-loading="isLoading" />
+        
+
+		<NotificationCard 
+			v-for="notification in notifications"
+			v-if="notifications"
+			:key="notification.id"
+			:notification="notification"
+			@follow="(u) => $emit('follow', u)"
+			@unfollow="(u) => $emit('unfollow', u)" />
+	</div>  
+</template>
+
+<script setup lang="ts">
+import {
+    type PropType,
+    computed
+} from 'vue'
+
+import {
+    UserProfileSkeleton,
+    NotificationCard
+} from '@/components'
+
+
+import type {
+    NotificationCard as NotificationResult,
+} from '@/common'
+
+const prop = defineProps({
+    notifications: {
+        type: Array as PropType <NotificationResult[] | undefined> ,
+        required: true
+    },
+    isLoading: Boolean,
+    isEmpty: Boolean
+})
+
+const isNotificationSectionEmpty = computed(() => {
+    return prop.isEmpty && !prop.isLoading
+})
+</script>
