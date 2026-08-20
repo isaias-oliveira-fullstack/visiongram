@@ -32,7 +32,7 @@ Confira abaixo como a plataforma facilita a criação, o compartilhamento e a in
 
 Acompanhe o funcionamento pelo video a seguir:
 
-[![Demonstração do projeto](https://github-production-user-asset-6210df.s3.amazonaws.com/4692453/614941808-4c75c668-b728-44d2-91b3-64fe7436d463.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T045822Z&X-Amz-Expires=300&X-Amz-Signature=daed9f2f720d4b5d8658cb4c0d62b90ac694d41c3f192b051d40bd3fae8e206d&X-Amz-SignedHeaders=host&response-content-type=image%2Fpng)](https://youtu.be/pPQPnDUgivQ)
+[![Demonstração do projeto](https://github.com/isaias-oliveira-fullstack/visiongram/blob/main/public/VisionGram__Preview_do_Projeto__Hackathon_Fullstack.gif?raw=true)](https://youtu.be/pPQPnDUgivQ)
 
 ## Funcionalidades
 
